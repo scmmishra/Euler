@@ -1,3 +1,2 @@
-list=[0,3,4,5,6,7]
-print(len(list))
-print(list[3])
+for ii in range(0,13):
+    print ii
