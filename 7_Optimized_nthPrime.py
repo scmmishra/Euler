@@ -1,5 +1,5 @@
 import time
-def eratosthenes2(n):
+def seive(n):
     multiples = set()
     for i in range(2, n+1):
         if i not in multiples:
@@ -7,6 +7,6 @@ def eratosthenes2(n):
             multiples.update(range(i*i, n+1, i))
 
 start_time = time.time()
-primes = list(eratosthenes2(150000))
+primes = list(seive(150000))
 print(primes[10000])
 print("--- %s seconds ---" % (time.time() - start_time))
