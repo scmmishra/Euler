@@ -1,42 +1,34 @@
 import time
-with open('Output.txt') as f:
-    primes = text_file.read().split(',')
-def triangular(n):
-    return sum(range(n+1))
 
-def prime_before(number):
-    if number == 1:
-        return 1
-    elif number in primes:
-        return number
-    else:
-        return prime_before(number - 1)
-
-def calculate(rawlist):
-    yo = 1
-    for jj in rawlist:
-        yo = yo * (jj+1)
-    return yo
-
-def main():
-    num = 0
+def num_divisors(n):
+    if n % 2 == 0: n = n/2
+    divisors = 1
     count = 0
-    count_list = []
-    for ii in range (5,100):
-        num = triangular(ii)
-        num2 = num
-        print(num, end=" ")
-        largest_prime = prime_before(num)
-        for ii in reversed(primes[:primes.index(largest_prime)+1]):
-            while num % ii == 0:
-                count = count + 1
-                num = num / ii
-            if count != 0: count_list.append(count)
-            count = 0
-        print(calculate(count_list))
-        if calculate(count_list) == 500:
-            return num2
-        del count_list[:]
+    while n % 2 == 0:
+        count += 1
+        n = n/2
+    divisors = divisors * (count + 1)
+    p = 3
+    while n != 1:
+        count = 0
+        while n % p == 0:
+            count += 1
+            n = n/p
+        divisors = divisors * (count + 1)
+        p += 2
+    return divisors
 
-if __name__ == "__main__":
-    main()
+def find_triangular_index(factor_limit):
+    n = 1
+    lnum, rnum = num_divisors(n), num_divisors(n+1)
+    while lnum * rnum < 500:
+        n += 1
+        lnum, rnum = rnum, num_divisors(n+1)
+    return n
+
+start = time.time()
+index = find_triangular_index(500)
+triangle = (index * (index + 1)) / 2
+elapsed = (time.time() - start)
+
+print("result %s returned in %s seconds." % (triangle,elapsed))
