@@ -1,4 +1,5 @@
-import sys
+import time
+start_time = time.time()
 n = 2
 LIMIT = 1000000
 size_list = [0] * LIMIT
@@ -31,3 +32,4 @@ for ii in range (3, LIMIT):
   size_list[ii] = count(ii)
 
 print(size_list.index(max(size_list)))
+print("--- %s seconds ---" % (time.time() - start_time))
